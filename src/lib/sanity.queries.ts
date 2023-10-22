@@ -28,9 +28,27 @@ export interface Post {
   _type: 'post'
   _id: string
   _createdAt: string
+  _ref?: string
   title?: string
   slug: Slug
   excerpt?: string
   mainImage?: ImageAsset
   body: PortableTextBlock[]
+}
+
+// get nav items from sanity
+export const navItemsQuery = groq`*[_type == "navItems"]`
+
+export async function getNavItems(client: SanityClient): Promise<NavItems[]> {
+  return await client.fetch(navItemsQuery)
+}
+
+export interface NavItems {
+  _type: 'navItems'
+  _id: string
+  _createdAt: string
+  title?: string
+  href?: string
+  description?: string
+  slug: Slug
 }
