@@ -1,8 +1,8 @@
 "use client";
 
-import { PortableText} from "@portabletext/react"
+import { PortableText } from "@portabletext/react"
 import Image from "next/image";
-import {FC,  useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { generateId } from "~/hooks/generateId";
@@ -71,27 +71,25 @@ const ImgWrapper = styled.div`
     }
 `;
 
+const CustomImage: FC<any> = ({ value }) => {
+    return (
+        <ImgWrapper>
+            <Image
+                src={urlForImage(value).url() || ""}
+                alt=""
+                width={769}
+                height={224}
+            />
+        </ImgWrapper>
+    );
+}
+
+
 const myPortableTextComponents = {
-    block: {
-        h2: ({ children}) => {
-            return (
-                <h2
-                    id={`${generateId(children.toString())}`}
-                >{children}</h2>
-            )
-        }
-    },
     types: {
         image: ({ value }) => {
             return (
-                <ImgWrapper>
-                    <Image
-                        src={urlForImage(value).url() || ""}
-                        alt=""
-                        width={769}
-                        height={224}
-                    />
-                </ImgWrapper>
+                <CustomImage value={value} />
             );
         },
     }
@@ -108,20 +106,24 @@ const BlogContentSection: FC<BlogContentProps> = ({ content }) => {
 
     useEffect(() => {
         if (ref.current) {
-            const h2Tags = ref.current.querySelectorAll("h2")
-            const h2TextArray = Array.from(h2Tags).map(h2 => (h2 as HTMLElement)?.textContent).filter(Boolean);
+            const h2Tags: NodeListOf<HTMLHeadingElement> = ref.current.querySelectorAll("h2");
 
-            let arr = []
-            h2TextArray.forEach((title) => {
-                const obj = {
-                    id: generateId(title),
-                    title: title
-                }
-                arr.push(obj)
-            })
-            setH2Tags(arr)
+            // Create an array of objects with id and title
+            const h2TagsData = Array.from(h2Tags).map((h2) => ({
+                id: generateId(h2.textContent || ""),
+                title: h2.textContent || "",
+            }));
+
+            // Set the array of h2 tags data in state
+            setH2Tags(h2TagsData);
+
+            // Give id to h2 tags directly
+            h2Tags.forEach((h2) => {
+                h2.setAttribute("id", generateId(h2.textContent || ""));
+            });
         }
-    }, [])
+    }, []);
+
 
     return (
         <Root>
