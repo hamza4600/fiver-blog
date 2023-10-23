@@ -17,7 +17,6 @@ const Root = styled.div`
 
 const BlogContainer = styled.div`
   flex: 1;
-  overflow-y: auto;
   padding: 20px;
   max-width: 860px;
   position: relative;
@@ -71,63 +70,71 @@ const ImgWrapper = styled.div`
 `
 
 const CustomImage: FC<any> = ({ value }) => {
-  return (
-    <ImgWrapper>
-      <Image
-        src={urlForImage(value).url() || ''}
-        alt=""
-        width={769}
-        height={224}
-      />
-    </ImgWrapper>
-  )
+    return (
+        <ImgWrapper>
+            <Image
+                src={urlForImage(value).url() || ''}
+                alt=""
+                width={769}
+                height={224}
+            />
+        </ImgWrapper>
+    )
 }
 
 const myPortableTextComponents = {
-  types: {
-    image: ({ value }) => {
-      return <CustomImage value={value} />
+    types: {
+        image: ({ value }) => {
+            return <CustomImage value={value} />
+        },
     },
-  },
 }
 
 type BlogContentProps = {
-  content: any
+    content: any
 }
 
 const BlogContentSection: FC<BlogContentProps> = ({ content }) => {
-  const [h2Tags, setH2Tags] = useState([])
-  const ref = useRef(null)
+    const [h2Tags, setH2Tags] = useState([])
+    const ref = useRef(null)
 
-  useEffect(() => {
-    if (ref.current) {
-      const h2Tags: NodeListOf<HTMLHeadingElement> =
-        ref.current.querySelectorAll('h2')
+    useEffect(() => {
+        if (ref.current) {
+            const h2Tags: NodeListOf<HTMLHeadingElement> = ref.current.querySelectorAll('h2')
 
-      // Create an array of objects with id and title
-      const h2TagsData = Array.from(h2Tags).map((h2) => ({
-        id: generateId(h2.textContent || ''),
-        title: h2.textContent || '',
-      }))
+            // Create an array of objects with id and title
+            const h2TagsData = Array.from(h2Tags).map((h2) => {
+                const title = h2.textContent || '';
+                if (title.trim()) {
+                    return {
+                        id: generateId(title),
+                        title: title,
+                    };
+                }
+                return null; // Skip empty titles
+            }).filter(Boolean);
 
-      // Set the array of h2 tags data in state
-      setH2Tags(h2TagsData)
+            // Set the array of h2 tags data in state
+            setH2Tags(h2TagsData);
 
-      // Give id to h2 tags directly
-      h2Tags.forEach((h2) => {
-        h2.setAttribute('id', generateId(h2.textContent || ''))
-      })
-    }
-  }, [])
+            // Give id to h2 tags directly
+            h2Tags.forEach((h2) => {
+                const title = h2.textContent || '';
+                if (title.trim()) {
+                    h2.setAttribute('id', generateId(title));
+                }
+            });
+        }
+    }, []);
 
-  return (
-    <Root>
-      <BlogContainer ref={ref} className="blog-content">
-        <PortableText value={content} components={myPortableTextComponents} />
-      </BlogContainer>
-      <AsideBar title="Table of Contents" contentArray={h2Tags} />
-    </Root>
-  )
+    return (
+        <Root>
+            <BlogContainer ref={ref} className="blog-content">
+                <PortableText value={content} components={myPortableTextComponents} />
+            </BlogContainer>
+            <AsideBar title="Table of Contents" contentArray={h2Tags} />
+        </Root>
+    )
 }
 
 export default BlogContentSection

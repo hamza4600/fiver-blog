@@ -1,24 +1,19 @@
+"use client";
+
 import { FC, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import { generateId } from '~/hooks/generateId'
-import useSticky from '~/hooks/useSticky'
-
-type RootProps = {
-  isSticky?: boolean
-}
-
-const AsideWrapper = styled.aside<RootProps>`
-  position: relative;
+const AsideWrapper = styled.aside`
   min-width: 11.5rem;
+  position: sticky;
+  top: 60px;
+  height: 100%;
 
   nav {
     padding-inline: 0.75rem;
     margin-block-start: 2rem;
     padding-block: 0.25rem;
 
-    position: ${(props) => (props.isSticky ? 'fixed' : 'relative')};
-    top: ${(props) => (props.isSticky ? '60px' : '0')};
     right: 0;
     z-index: 1000;
     background-color: transparent;
@@ -54,9 +49,9 @@ const Li = styled.li<LiProps>`
     font-size: 12px;
     font-weight: 400;
     color: ${(props) =>
-      props.isActive === 'true'
-        ? props.theme.AsideBar.activeColor
-        : props.theme.AsideBar.textColor} !important;
+    props.isActive === 'true'
+      ? props.theme.AsideBar.activeColor
+      : props.theme.AsideBar.textColor} !important;
   }
 
   &::before {
@@ -67,18 +62,26 @@ const Li = styled.li<LiProps>`
     left: -13px;
     top: -5px;
     background-color: ${(props) =>
-      props.isActive === 'true'
-        ? props.theme.AsideBar.activeColor
-        : 'transparent'};
+    props.isActive === 'true'
+      ? props.theme.AsideBar.activeColor
+      : 'transparent'};
+  }
+
+  // hover effect
+  &:hover {
+    // a {
+    //   color: ${(props) => props.theme.AsideBar.activeColor} !important;
+    // }
+    // &::before {
+    //   background-color: ${(props) => props.theme.AsideBar.activeColor};
+    // }
+    background-color: rgba(0, 0, 0, 0.05);
   }
 `
 const AsideBar: FC<AsideBarProps> = ({ title, contentArray }) => {
-  const { sticky, stickyRef } = useSticky()
 
   const [active, setActive] = useState('')
-  // active first item
-  console.log(active, 'ACTIVE')
-
+  console.log(active, "active==")
   useEffect(() => {
     if (contentArray.length > 0) {
       setActive(contentArray[0].id)
@@ -86,47 +89,50 @@ const AsideBar: FC<AsideBarProps> = ({ title, contentArray }) => {
   }, [contentArray])
 
   // update active link when scroll to other section
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset
-      const sections = document.querySelectorAll('h2')
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const currentScrollPos = window.pageYOffset
+  //     const sections = document.querySelectorAll('h2')
 
-      sections.forEach((section, index) => {
-        const sectionTop = section.offsetTop
-        const sectionHeight = section.clientHeight
-        if (
-          currentScrollPos >= sectionTop - sectionHeight * 0.25 &&
-          currentScrollPos < sectionTop + sectionHeight * 0.75
-        ) {
-          setActive(`${section.id}`)
-        }
-      })
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  //     sections.forEach((section, index) => {
+  //       const sectionTop = section.offsetTop
+  //       const sectionHeight = section.clientHeight
+  //       if (
+  //         currentScrollPos >= sectionTop - sectionHeight * 0.25 &&
+  //         currentScrollPos < sectionTop + sectionHeight * 0.75
+  //       ) {
+  //         setActive(`${section.id}`)
+  //       }
+  //     })
+  //   }
+  //   window.addEventListener('scroll', handleScroll)
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll)
+  //   }
+  // }, [])
+
+  const handleClicked = (id: string) => {
+    setActive(id)
+    console.log(id, "id==")
+  }
 
   return (
-    <AsideWrapper
-      ref={stickyRef}
-      isSticky={sticky}
-      style={{
-        transition: 'all 200ms ease-in-out',
-      }}
-    >
+    <AsideWrapper>
       <InssideWrapper>
         <h3 className="aside-title">Contents</h3>
         <ul>
           {contentArray.map((item, index) => (
             <Li
-              key={index}
+              key={index + item.id}
               isActive={active === item.id ? 'true' : 'false'}
-              onClick={() => setActive(item.id)}
+              onClick={(event) => {
+                event.stopPropagation();
+                handleClicked(item.id);
+              }}
               aeria-current={active === item.id ? 'true' : 'false'}
             >
-              <a href={`#${item.id}`} title={item.title}>
+              <a
+                href={`#${item.id}`} title={item.title}>
                 {item.title}
               </a>
             </Li>

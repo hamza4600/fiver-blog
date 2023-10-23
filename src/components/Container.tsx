@@ -22,14 +22,12 @@ const Header = styled.header`
 
 const LayoutWrapper = styled.div`
   display: flex;
-  overflow: hidden; /* Prevent scroll on the entire layout */
 `
 
 const MainContent = styled.div`
-  flex: 1; /* Take up remaining space */
+  flex: 1;
   padding: 20px;
-  overflow-y: auto; /* Enable scrolling in the main content */
-  padding-left: 300px; /* Same width as the sidebar + left padding */
+  padding-left: 300px;
 `
 
 const Footer = styled.footer`
