@@ -1,19 +1,16 @@
-import { PortableText } from '@portabletext/react'
-import type { GetServerSideProps, GetStaticProps, InferGetServerSidePropsType,InferGetStaticPropsType } from 'next'
+import type { GetServerSideProps, GetStaticProps, InferGetServerSidePropsType, InferGetStaticPropsType } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import { useLiveQuery } from 'next-sanity/preview'
 
+import BlogContentSection from '~/components/BlogContent'
 import ArticleGrid from '~/components/BlogGrid'
 import Container from '~/components/Container'
 import SectionHeroModule from '~/components/HeroSection'
 import { readToken } from '~/lib/sanity.api'
 import { getClient } from '~/lib/sanity.client'
-import { type CollectionPage, collectionSlugQuery, getAllPostByRef, getCollectionPageBySlug, getPostByCollectionName } from '~/lib/sanity.collection.queries'
+import { type CollectionPage, getAllPostByRef, getCollectionPageBySlug } from '~/lib/sanity.collection.queries'
 import { urlForImage } from '~/lib/sanity.image'
 import { getNavItems, getPost } from '~/lib/sanity.queries'
 import type { SharedPageProps } from '~/pages/_app'
-import { formatDate } from '~/utils'
 
 
 type Props = {
@@ -99,7 +96,6 @@ export const getServerSideProps: GetStaticProps<
             },
         }
     }
-
 }
 
 export default function ProjectSlugRoute(
@@ -110,8 +106,6 @@ export default function ProjectSlugRoute(
     //   })
     const post = props.blogPost
     const collection = props.collection
-
-    console.log(post, "blogPost")
 
     // sidebar array
     const sideBarItems = post.map((item) => {
@@ -131,33 +125,21 @@ export default function ProjectSlugRoute(
                 navItems={props.navItems}
                 sideBarItems={sideBarItems}
                 parentSlug={props.parentSlug}
-                sideBarTitle = {props.collection.title}
+                sideBarTitle={props.collection.title}
             >
 
                 {
                     props.blogPostArticle ? (
                         <>
-
                             <section className="post">
-                                {props.blogPostArticle.mainImage ? (
-                                    <Image
-                                        className="post__cover"
-                                        src={urlForImage(props.blogPostArticle.mainImage).url() || ""}
-                                        height={231}
-                                        width={367}
-                                        alt=""
-                                    />
-                                ) : (
-                                    <div className="post__cover--none" />
-                                )}
-                                <div className="post__container">
-                                    <p className="post__excerpt">{props.blogPostArticle.description}</p>
-                                    <h1 className="post__title">{props.blogPostArticle.title}</h1>
-                                    <p className="post__date">{formatDate(props.blogPostArticle._createdAt)}</p>
-                                    <div className="post__content">
-                                        <PortableText value={props.blogPostArticle.body} />
-                                    </div>
-                                </div>
+                                <SectionHeroModule
+                                    title={props.blogPostArticle.title}
+                                    subtitle={props.blogPostArticle.description}
+                                    image={urlForImage(props.blogPostArticle.mainImage).url() || ""}
+                                />
+                                <BlogContentSection
+                                    content={props.blogPostArticle.body}
+                                />
                             </section>
                         </>
                     ) : (
@@ -167,7 +149,7 @@ export default function ProjectSlugRoute(
                                 subtitle={collection.description}
                                 image={urlForImage(collection.headerImage).url() || ""}
                             />
-                            <ArticleGrid 
+                            <ArticleGrid
                                 articles={post}
                                 parentSlug={props.parentSlug}
                             />

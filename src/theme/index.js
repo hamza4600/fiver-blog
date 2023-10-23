@@ -28,6 +28,14 @@ const lightThem = {
         titleColor : '#172B4D',
         textColor : '#44546F',
     },
+    AsideBar : {
+        textColor : "#626F86",
+        border : '#091E4224',
+        activeColor : '#0C66E4',
+    },
+    blogSection : {
+        textColor : "#172B4D",
+    },
     breakpoints : {
         mobile : 'only screen and (max-width: 48em)',
         tablet : 'only screen and (max-width: 56.25em)',
@@ -65,6 +73,14 @@ const darkThem = {
         background : '#A1BDD914',
         titleColor : '#B6C2CF',
         textColor : '#9FADBC',
+    },
+    AsideBar : {
+        textColor : "#8C9BAB",
+        border : "#A6C5E229",
+        activeColor : '#579DFF',
+    },
+    blogSection : {
+        textColor : "#B6C2CF",
     },
     breakpoints : {
         mobile : 'only screen and (max-width: 48em)',

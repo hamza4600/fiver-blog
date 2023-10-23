@@ -56,5 +56,8 @@ export default defineType({
         ],
       },
     }),
+    {
+      type: 'image', // Custom block type for images
+    },
   ],
 })

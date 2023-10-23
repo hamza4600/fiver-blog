@@ -43,6 +43,7 @@ const Container = styled.div<ContainerProps>`
             font-size: 36px;
             font-weight: 500;
             color: ${props => props.theme.heroModule.titleColor};
+            text-transform: capitalize;
         }
 
         p {
