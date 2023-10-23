@@ -40,11 +40,9 @@ export default function IndexPage(
   return (
     <>
       <Head>
-        <title >Home page</title>
+        <title>Home page</title>
       </Head>
-      <Container
-        navItems={navItems}
-      >
+      <Container navItems={navItems}>
         {/* navbar  */}
         <section>
           {posts.length ? (

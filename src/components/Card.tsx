@@ -6,7 +6,6 @@ import { type Post } from '~/lib/sanity.queries'
 import { formatDate } from '~/utils'
 
 const CardWrapper = styled.div`
-
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -14,8 +13,7 @@ const CardWrapper = styled.div`
   border-radius: 5px;
   border: 1px solid #eaeaea;
   padding: 1rem;
-
-`;
+`
 
 export default function Card({ post }: { post: Post }) {
   return (

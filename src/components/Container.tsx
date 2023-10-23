@@ -1,68 +1,64 @@
-"use client"
-import styled from "styled-components";
+'use client'
+import styled from 'styled-components'
 
 import Navbar from './Navbar'
-import SideBar from "./Sidebar";
-import { FC } from "react";
+import SideBar from './Sidebar'
 
 const ContainerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  max-width: ${props => props.theme.maxWidth};
+  max-width: ${(props) => props.theme.maxWidth};
   min-height: 100vh;
-
-`;
+`
 
 const Header = styled.header`
-
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
-
-`;
+`
 
 const LayoutWrapper = styled.div`
   display: flex;
   overflow: hidden; /* Prevent scroll on the entire layout */
-`;
-
+`
 
 const MainContent = styled.div`
   flex: 1; /* Take up remaining space */
   padding: 20px;
   overflow-y: auto; /* Enable scrolling in the main content */
   padding-left: 300px; /* Same width as the sidebar + left padding */
-
-`;
+`
 
 const Footer = styled.footer`
-
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 100;
-
-`;
+`
 
 type ContainerProps = {
   children?: React.ReactNode
   navItems: any[]
   sideBarItems?: any[]
   parentSlug?: string
-  sideBarTitle : string
+  sideBarTitle?: string
 }
 
-export default function Container({ children, navItems, sideBarItems, parentSlug, sideBarTitle}: ContainerProps) {
+export default function Container({
+  children,
+  navItems,
+  sideBarItems,
+  parentSlug,
+  sideBarTitle,
+}: ContainerProps) {
   return (
     <ContainerWrapper>
       <Header className="header">
-        <Navbar
-          navItemList={navItems}
-        />
+        <Navbar navItemList={navItems} />
       </Header>
       <LayoutWrapper>
         <SideBar
@@ -70,9 +66,7 @@ export default function Container({ children, navItems, sideBarItems, parentSlug
           listArray={sideBarItems || []}
           parentSlug={parentSlug}
         />
-        <MainContent>
-          {children}
-        </MainContent>
+        <MainContent>{children}</MainContent>
         <Footer className="footer">
           <p className="footer__text">
             Made with{' '}

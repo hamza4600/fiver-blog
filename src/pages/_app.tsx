@@ -3,7 +3,7 @@ import '../theme/style.css'
 import type { AppProps } from 'next/app'
 import { lazy } from 'react'
 
-import MainThemeProvider from "~/theme/provider"
+import MainThemeProvider from '~/theme/provider'
 import { ThemeProvider } from '~/theme/themeContext'
 export interface SharedPageProps {
   draftMode: boolean

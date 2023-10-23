@@ -18,16 +18,16 @@ export async function getPostByCollectionName(
 }
 
 export const getAllPostByRef = (
-    client: SanityClient,
-    arry : string[]
-) : Promise<Post[][]> => {
-    // on bases of array of reference get all post
-    const data = arry.map((item) => {
-        return client.fetch(postByCollectionNameQuery, {
-            id: item,
-        })
+  client: SanityClient,
+  arry: string[],
+): Promise<Post[][]> => {
+  // on bases of array of reference get all post
+  const data = arry.map((item) => {
+    return client.fetch(postByCollectionNameQuery, {
+      id: item,
     })
-    return Promise.all(data)
+  })
+  return Promise.all(data)
 }
 
 // get all  collection page from sanity
