@@ -40,9 +40,9 @@ const lightThem = {
     background: '#fff',
     color: '#172B4D',
     iconColor: '#44546F',
-    focusBorderColor : '#0c66e4',
+    focusBorderColor: '#0c66e4',
   },
-  blogCard : {
+  blogCard: {
     boxShadow: '0px 8px 12px #091E4226, 0px 0px 1px #091E424F',
     h1Color: '#172B4D',
     desColor: '#626F86',
@@ -99,10 +99,11 @@ const darkThem = {
     background: '#22272B',
     color: '#B6C2CF',
     iconColor: '#9FADBC',
-    focusBorderColor : '#0c66e4',
+    focusBorderColor: '#0c66e4',
   },
-  blogCard : {
-    boxShadow: '0px 0px 0px 1px #39424a, 0px 8px 12px #0304045C, 0px 0px 1px 1px #03040480',
+  blogCard: {
+    boxShadow:
+      '0px 0px 0px 1px #39424a, 0px 8px 12px #0304045C, 0px 0px 1px 1px #03040480',
     h1Color: '#B6C2CF',
     desColor: '#8C9BAB',
     bgColor: '#22272B',

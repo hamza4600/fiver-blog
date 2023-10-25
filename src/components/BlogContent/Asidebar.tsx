@@ -1,9 +1,9 @@
-"use client";
+'use client'
 
 import { FC } from 'react'
 import styled from 'styled-components'
 
-import Scrollspy from '~/hooks/useDrag';
+import Scrollspy from '~/hooks/useDrag'
 
 const AsideWrapper = styled.aside`
   min-width: 11.5rem;
@@ -52,6 +52,5 @@ const AsideBar: FC<AsideBarProps> = ({ title, contentArray }) => (
     </InssideWrapper>
   </AsideWrapper>
 )
-
 
 export default AsideBar

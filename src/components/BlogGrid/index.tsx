@@ -22,7 +22,6 @@ const Root = styled.section`
     grid-template-columns: repeat(12, 1fr);
     grid-gap: 1.5rem;
     padding: 2rem;
-
   }
 `
 const BlogCard = styled.div`
@@ -45,20 +44,18 @@ const BlogCard = styled.div`
     cursor: pointer;
     box-shadow: ${({ theme }) => theme.blogCard.boxShadow};
   }
-
-`;
+`
 const ImgWrapper = styled.div`
-
   position: relative;
   width: 100%;
   height: 224px;
   border-radius: 4px;
   overflow: hidden;
-  
+
   img {
     object-fit: cover;
   }
-`;
+`
 
 const TextWrapper = styled.div`
   display: flex;
@@ -70,7 +67,7 @@ const TextWrapper = styled.div`
   grid-column: span 12;
   overflow: hidden;
   padding: 1rem;
-  
+
   h3 {
     text-transform: capitalize;
     font-size: 24px;
@@ -84,8 +81,7 @@ const TextWrapper = styled.div`
     font-size: 14px;
     line-height: 1.5;
   }
-`;
-
+`
 
 type GridCardProps = {
   img: string

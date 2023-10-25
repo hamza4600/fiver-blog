@@ -11,15 +11,11 @@ const LeftSideWrapper = styled.div`
   gap: 0.5rem;
 `
 
-
 const LeftSide = () => {
-
   return (
     <LeftSideWrapper>
-
       <SeachBar />
       <ThemeButton />
-    
     </LeftSideWrapper>
   )
 }

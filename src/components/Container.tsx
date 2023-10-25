@@ -62,9 +62,7 @@ export default function Container({
           parentSlug={parentSlug}
         />
         <MainContent>
-          <div className='main-cont'>
-            {children}
-          </div>
+          <div className="main-cont">{children}</div>
           <Footer className="footer">
             <p className="footer__text">
               Made with{' '}

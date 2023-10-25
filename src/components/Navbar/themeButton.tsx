@@ -71,10 +71,10 @@ export const NavButton = styled.button<NavButtonProps>`
 
 const ThemeButton = () => {
   const { theme, toggleTheme } = useTheme()
-    
-    return (
-        <>
-          <DropdownMenu.Root>
+
+  return (
+    <>
+      <DropdownMenu.Root>
         <DropdownMenu.Trigger asChild>
           <NavButton isThemeButton>
             <span>Theme</span>
@@ -111,8 +111,8 @@ const ThemeButton = () => {
           </DropdownMenuContent>
         </DropdownMenu.Portal>
       </DropdownMenu.Root>
-        </>
-    )
+    </>
+  )
 }
 
 export default ThemeButton

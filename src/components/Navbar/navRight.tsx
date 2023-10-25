@@ -154,7 +154,7 @@ const RightSide: FC<NavProps> = ({ navIcon, navItemList }) => {
   const isActive = (name: string) => {
     return router.split('/')[2] === name.toLowerCase()
   }
-  console.log(navItemList , "navItemList")
+  console.log(navItemList, 'navItemList')
   return (
     <RightSideWrapper>
       {/* logo */}

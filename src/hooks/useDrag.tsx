@@ -1,6 +1,5 @@
-import React from "react";
-import styled from "styled-components";
-
+import React from 'react'
+import styled from 'styled-components'
 
 type LiProps = {
   isActive?: string
@@ -14,9 +13,9 @@ const Li = styled.li<LiProps>`
     font-size: 12px;
     font-weight: 400;
     color: ${(props) =>
-    props.isActive === 'true'
-      ? props.theme.AsideBar.activeColor
-      : props.theme.AsideBar.textColor} !important;
+      props.isActive === 'true'
+        ? props.theme.AsideBar.activeColor
+        : props.theme.AsideBar.textColor} !important;
   }
 
   &::before {
@@ -27,9 +26,9 @@ const Li = styled.li<LiProps>`
     left: -13px;
     top: -5px;
     background-color: ${(props) =>
-    props.isActive === 'true'
-      ? props.theme.AsideBar.activeColor
-      : 'transparent'};
+      props.isActive === 'true'
+        ? props.theme.AsideBar.activeColor
+        : 'transparent'};
   }
 
   &:hover {
@@ -37,94 +36,92 @@ const Li = styled.li<LiProps>`
   }
 `
 
-const SPY_INTERVAL = 300;
+const SPY_INTERVAL = 300
 
 interface SpyItem {
-  inView: boolean;
-  element: HTMLElement;
+  inView: boolean
+  element: HTMLElement
 }
 
 interface ScrollspyProps {
-  ids: string[];
-  offset: number;
-  itemContainerClassName?: string;
-  activeItemClassName?: string;
-  itemClassName?: string;
+  ids: string[]
+  offset: number
+  itemContainerClassName?: string
+  activeItemClassName?: string
+  itemClassName?: string
 }
 
 interface ScrollspyState {
-  items: SpyItem[];
+  items: SpyItem[]
 }
 
 class Scrollspy extends React.Component<ScrollspyProps, ScrollspyState> {
   constructor(props: any) {
-    super(props);
+    super(props)
     this.state = {
-      items: []
-    };
+      items: [],
+    }
   }
 
   public static defaultProps: Partial<ScrollspyProps> = {
-    offset: 2
-  };
+    offset: 2,
+  }
 
-  private timer: number;
+  private timer: number
 
   private spy() {
     const items = this.props.ids
-      .map(id => {
-        const element = document.getElementById(id);
+      .map((id) => {
+        const element = document.getElementById(id)
         if (element) {
           return {
             inView: this.isInView(element),
-            element
-          } as SpyItem;
+            element,
+          } as SpyItem
         } else {
-          return;
+          return
         }
       })
-      .filter(item => item);
+      .filter((item) => item)
 
-    const firstTrueItem = items.find(item => !!item && item.inView);
+    const firstTrueItem = items.find((item) => !!item && item.inView)
 
     if (!firstTrueItem) {
-      return; // dont update state
+      return // dont update state
     } else {
-      const update = items.map(item => {
-        return { ...item, inView: item === firstTrueItem } as SpyItem;
-      });
+      const update = items.map((item) => {
+        return { ...item, inView: item === firstTrueItem } as SpyItem
+      })
 
-      this.setState({ items: update });
+      this.setState({ items: update })
     }
   }
 
   public componentDidMount() {
-    this.timer = window.setInterval(() => this.spy(), SPY_INTERVAL);
+    this.timer = window.setInterval(() => this.spy(), SPY_INTERVAL)
   }
 
   public componentWillUnmount() {
-    window.clearInterval(this.timer);
+    window.clearInterval(this.timer)
   }
 
   private isInView = (element: HTMLElement) => {
     if (!element) {
-      return false;
+      return false
     }
-    const { offset } = this.props;
-    const rect = element.getBoundingClientRect();
+    const { offset } = this.props
+    const rect = element.getBoundingClientRect()
 
-    return rect.top >= 0 - offset && rect.bottom <= window.innerHeight + offset;
-  };
+    return rect.top >= 0 - offset && rect.bottom <= window.innerHeight + offset
+  }
 
   private scrollTo(element: HTMLElement) {
-
-    const navHeight = document.getElementById('nav11').offsetHeight;
-    const offset = element.offsetTop - navHeight;
+    const navHeight = document.getElementById('nav11').offsetHeight
+    const offset = element.offsetTop - navHeight
     window.scrollTo({
       top: offset,
-      behavior: "smooth"
-    });
-
+      behavior: 'smooth',
+    })
   }
 
   // private scrollSpy() {
@@ -156,47 +153,44 @@ class Scrollspy extends React.Component<ScrollspyProps, ScrollspyState> {
   // }
 
   public render() {
-    const {
-      itemContainerClassName,
-      activeItemClassName,
-      itemClassName
-    } = this.props;
+    const { itemContainerClassName, activeItemClassName, itemClassName } =
+      this.props
 
-    const activeItem = this.state.items.find(item => item.inView);
-    console.log(activeItem);
+    const activeItem = this.state.items.find((item) => item.inView)
+    console.log(activeItem)
     return (
-      <ul className={(itemContainerClassName)}>
+      <ul className={itemContainerClassName}>
         {this.state.items.map((item, k) => {
           return (
             <Li
-              className={(
+              className={
                 itemClassName + (item.inView ? ` ${activeItemClassName}` : '')
-              )}
+              }
               key={k}
               onClick={(e) => {
-                e.preventDefault();
-                this.scrollTo(item.element);
-                window.history.pushState(null, '', `#${item.element.id}`);
+                e.preventDefault()
+                this.scrollTo(item.element)
+                window.history.pushState(null, '', `#${item.element.id}`)
               }}
               isActive={item.inView ? 'true' : 'false'}
               aeria-current={item.inView ? 'true' : 'false'}
             >
-              <a 
-                data-scroll-to={`#${item.element.id}`} 
+              <a
+                data-scroll-to={`#${item.element.id}`}
                 href={`#${item.element.id}`}
                 title={item.element.innerText}
               >
                 {item.element.innerText}
               </a>
             </Li>
-          );
+          )
         })}
       </ul>
-    );
+    )
   }
 }
 
-export default Scrollspy;
+export default Scrollspy
 
 // <Scrollspy ids={["One", "Two", "Three", "Four"]}
 //   itemContainerClassName="scrollSpyContainer"
