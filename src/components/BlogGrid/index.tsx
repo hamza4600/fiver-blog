@@ -19,12 +19,73 @@ const Root = styled.section`
 
   .grid {
     display: grid;
-    box-sizing: border-box;
-    width: 100%;
     grid-template-columns: repeat(12, 1fr);
-    margin-inline: auto;
+    grid-gap: 1.5rem;
+    padding: 2rem;
+
   }
 `
+const BlogCard = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  grid-column: span 12;
+  border-radius: 4px;
+  overflow: hidden;
+
+  background-color: ${({ theme }) => theme.blogCard.bgColor} !important;
+  border-radius: 4px;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: ${({ theme }) => theme.blogCard.boxShadow};
+  }
+
+`;
+const ImgWrapper = styled.div`
+
+  position: relative;
+  width: 100%;
+  height: 224px;
+  border-radius: 4px;
+  overflow: hidden;
+  
+  img {
+    object-fit: cover;
+  }
+`;
+
+const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  box-sizing: border-box;
+  width: 100%;
+  grid-column: span 12;
+  overflow: hidden;
+  padding: 1rem;
+  
+  h3 {
+    text-transform: capitalize;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: ${({ theme }) => theme.blogCard.h1Color} !important;
+  }
+
+  p {
+    color: ${({ theme }) => theme.blogCard.desColor} !important;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+`;
+
 
 type GridCardProps = {
   img: string
@@ -43,15 +104,15 @@ const GridCrad: FC<GridCardProps> = ({
 }) => {
   return (
     <Link href={`/collection/${collectionSlug}/${slug}`}>
-      <div className="grid-card">
-        <div className="grid-card__img">
+      <BlogCard className="grid-card">
+        <ImgWrapper className="grid-card__img">
           <Image src={img} alt={title} width={367} height={231} />
-        </div>
-        <div className="grid-card__content">
+        </ImgWrapper>
+        <TextWrapper className="grid-card__content">
           <h3 className="grid-card__title">{title}</h3>
           <p className="grid-card__description">{description}</p>
-        </div>
-      </div>
+        </TextWrapper>
+      </BlogCard>
     </Link>
   )
 }

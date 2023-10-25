@@ -12,7 +12,6 @@ const Root = styled.section`
   background-color: ${(props) => props.theme.heroModule.background};
   padding: 0 80px;
   position: relative;
-  margin-top: 30px;
 `
 type ContainerProps = {
   isImage: boolean

@@ -15,12 +15,15 @@ const Sidebar = styled.div`
   background-color: ${(props) => props.theme.sideBar.background};
   border-inline-end: 1px solid ${(props) => props.theme.sideBar.border};
   overflow-y: auto; /* Enable scrolling within the sidebar */
-  position: fixed;
+
+  position: sticky;
   top: 56px;
   min-width: 300px;
   max-width: 300px;
   height: 100%;
   z-index: 1;
+  flex-shrink: 0;
+  height: calc(100vh - 56px);
 `
 
 const SideBarInner = styled.div`

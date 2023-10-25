@@ -19,7 +19,7 @@ const NavWrapper = styled.nav`
 
 const Navbar: FC<NavProps> = ({ navIcon, navItemList }) => {
   return (
-    <NavWrapper>
+    <NavWrapper id="nav11">
       <RightSide navIcon={navIcon} navItemList={navItemList} />
       <LeftSide />
     </NavWrapper>

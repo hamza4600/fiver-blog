@@ -18,7 +18,7 @@ const RightSideWrapper = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 0.5rem;
+    gap: 4px;
     justify-content: center;
   }
 `
@@ -49,7 +49,7 @@ const NavItemElement = styled.div<StyleProps>`
   margin: 0 0.25rem;
   align-items: center;
   display: flex;
-  padding: 8px 3px;
+  padding: 8px 10px;
 
   a {
     font-family: inherit;
@@ -142,6 +142,9 @@ export type NavProps = {
     title: string
     href: string
     description: string
+    slug: {
+      current: string
+    }
   }[]
 }
 
@@ -151,7 +154,7 @@ const RightSide: FC<NavProps> = ({ navIcon, navItemList }) => {
   const isActive = (name: string) => {
     return router.split('/')[2] === name.toLowerCase()
   }
-
+  console.log(navItemList , "navItemList")
   return (
     <RightSideWrapper>
       {/* logo */}
@@ -168,7 +171,7 @@ const RightSide: FC<NavProps> = ({ navIcon, navItemList }) => {
             name={item.title}
             link={item.href}
             description={item.description}
-            isActive={isActive(item.title)}
+            isActive={isActive(item.slug?.current)}
           />
         ))}
       </div>
