@@ -1,6 +1,8 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import styled from 'styled-components'
 
+import useWindos from '~/hooks/useWindos'
+
 import { NavButton } from './themeButton'
 
 const SearchI = () => (
@@ -139,7 +141,8 @@ const InputWrapper = styled.div`
 `
 const SeachBar = () => {
   // get and show data from api
-
+  const { width } = useWindos()
+  const isTablet = width < 1024;
   return (
     <>
       <Dialog.Root>
@@ -148,7 +151,7 @@ const SeachBar = () => {
             <i>
               <SearchI />
             </i>
-            <span>Search</span>
+            {!isTablet && <span>Search</span>}
           </NavButton>
         </Dialog.Trigger>
         <Dialog.Portal>

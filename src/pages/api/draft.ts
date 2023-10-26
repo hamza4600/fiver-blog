@@ -14,6 +14,7 @@ export default async function preview(
   }
 
   const { query } = req
+  console.log('query', query)
 
   const secret = typeof query.secret === 'string' ? query.secret : undefined
   const slug = typeof query.slug === 'string' ? query.slug : undefined
@@ -38,7 +39,7 @@ export default async function preview(
 
   if (slug) {
     res.setDraftMode({ enable: true })
-    res.writeHead(307, { Location: `/post/${slug}` })
+    res.writeHead(307, { Location: `/collection/${slug}` })
     res.end()
     return
   }

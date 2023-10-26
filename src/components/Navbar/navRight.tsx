@@ -138,6 +138,7 @@ const RightItem: FC<NavItemProps> = ({ name, link, description, isActive }) => {
 
 export type NavProps = {
   navIcon?: string
+  toggleSideMenu?: () => void
   navItemList?: {
     title: string
     href: string

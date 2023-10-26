@@ -21,6 +21,7 @@ const lightThem = {
     hoverBackground: '#091E420F',
     activeBackground: '#E9F2FF',
     activeColor: '#0C66E4',
+    closeBox : 'white',
   },
   heroModule: {
     background: '#091E420F',
@@ -74,12 +75,13 @@ const darkThem = {
   maxWidth: '1920px',
   background: '#1D2125',
   sideBar: {
-    background: '#1D2125',
+    background: '#282E33',
     border: '#A6C5E229',
     color: 'rgb(182, 194, 207)',
     hoverBackground: '#A1BDD914',
     activeBackground: '#1C2B41',
     activeColor: '#579DFF',
+    closeBox : '#1D2125',
   },
   heroModule: {
     background: '#A1BDD914',

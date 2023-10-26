@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 import Navbar from './Navbar'
@@ -50,16 +51,28 @@ export default function Container({
   parentSlug,
   sideBarTitle,
 }: ContainerProps) {
+
+  const [showSideMenu, setShowSideMenu] = useState(false)
+ 
+  const toggleSideMenu = () => {
+    setShowSideMenu(!showSideMenu)
+  }
+
   return (
     <ContainerWrapper>
       <Header className="header">
-        <Navbar navItemList={navItems} />
+        <Navbar 
+          navItemList={navItems}
+          toggleSideMenu={toggleSideMenu}
+        />
       </Header>
       <LayoutWrapper>
         <SideBar
           title={sideBarTitle}
           listArray={sideBarItems || []}
           parentSlug={parentSlug}
+          showSideMenu={showSideMenu}
+          closeSideMenu={toggleSideMenu}
         />
         <MainContent>
           <div className="main-cont">{children}</div>
