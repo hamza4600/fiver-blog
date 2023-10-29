@@ -3,7 +3,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 
 import Navbar from './Navbar'
-import SideBar from './Sidebar'
+import SideBar from './Sidebar/Sidebar'
 
 const ContainerWrapper = styled.div`
   display: flex;
@@ -31,17 +31,14 @@ const MainContent = styled.div`
   }
 `
 
-const Footer = styled.footer`
-  background-color: #f5f5f5;
-  min-height: 100px;
-`
-
 type ContainerProps = {
   children?: React.ReactNode
   navItems: any[]
   sideBarItems?: any[]
   parentSlug?: string
   sideBarTitle?: string
+  isCollection?: boolean
+  subDropdown?: any[]
 }
 
 export default function Container({
@@ -50,10 +47,11 @@ export default function Container({
   sideBarItems,
   parentSlug,
   sideBarTitle,
+  isCollection,
+  subDropdown,
 }: ContainerProps) {
-
   const [showSideMenu, setShowSideMenu] = useState(false)
- 
+
   const toggleSideMenu = () => {
     setShowSideMenu(!showSideMenu)
   }
@@ -61,10 +59,7 @@ export default function Container({
   return (
     <ContainerWrapper>
       <Header className="header">
-        <Navbar 
-          navItemList={navItems}
-          toggleSideMenu={toggleSideMenu}
-        />
+        <Navbar navItemList={navItems} toggleSideMenu={toggleSideMenu} />
       </Header>
       <LayoutWrapper>
         <SideBar
@@ -73,30 +68,12 @@ export default function Container({
           parentSlug={parentSlug}
           showSideMenu={showSideMenu}
           closeSideMenu={toggleSideMenu}
+          navItemList={navItems}
+          isCollection={isCollection}
+          subDropdown={subDropdown}
         />
         <MainContent>
           <div className="main-cont">{children}</div>
-          <Footer className="footer">
-            <p className="footer__text">
-              Made with{' '}
-              <svg
-                datasanity-icon="heart-filled"
-                width="1em"
-                height="1em"
-                viewBox="0 0 25 25"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M17 16C15.8 17.3235 12.5 20.5 12.5 20.5C12.5 20.5 9.2 17.3235 8 16C5.2 12.9118 4.5 11.7059 4.5 9.5C4.5 7.29412 6.1 5.5 8.5 5.5C10.5 5.5 11.7 6.82353 12.5 8.14706C13.3 6.82353 14.5 5.5 16.5 5.5C18.9 5.5 20.5 7.29412 20.5 9.5C20.5 11.7059 19.8 12.9118 17 16Z"
-                  fill="currentColor"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                ></path>
-              </svg>{' '}
-              at Sanity
-            </p>
-          </Footer>
         </MainContent>
       </LayoutWrapper>
     </ContainerWrapper>

@@ -37,32 +37,35 @@ const OpenButton = styled.button`
   &:hover {
     cursor: pointer;
     background-color: ${(props) => props.theme.navbar.hoverBackground};
-
   }
-`;
+`
 const MenuIcons = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path d="M5 15h14v2H5zm0-8h14v2H5zm0 4h14v2H5z" fill="currentColor" fill-rule="evenodd"></path></svg>
+  <svg width="24" height="24" viewBox="0 0 24 24" role="presentation">
+    <path
+      d="M5 15h14v2H5zm0-8h14v2H5zm0 4h14v2H5z"
+      fill="currentColor"
+      fill-rule="evenodd"
+    ></path>
+  </svg>
 )
 
 const Navbar: FC<NavProps> = ({ navIcon, navItemList, toggleSideMenu }) => {
-
   const { width } = useWindos()
-  const isTablet = width < 1024;
+  const isTablet = width < 1024
 
   return (
     <NavWrapper id="nav11">
-      {
-        isTablet ? <>
-          <OpenButton
-            className="btn btn-icon"
-            onClick={toggleSideMenu}
-          >
+      {isTablet ? (
+        <>
+          <OpenButton className="btn btn-icon" onClick={toggleSideMenu}>
             <MenuIcons />
           </OpenButton>
-        </> : <>
+        </>
+      ) : (
+        <>
           <RightSide navIcon={navIcon} navItemList={navItemList} />
         </>
-      }
+      )}
       <LeftSide />
     </NavWrapper>
   )

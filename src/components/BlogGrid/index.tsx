@@ -18,10 +18,30 @@ const Root = styled.section`
   justify-content: stretch;
 
   .grid {
+    max-width: 960px;
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-gap: 1.5rem;
     padding: 2rem;
+  }
+
+  @media (max-width: 1024px) {
+    .grid {
+      padding: 24px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .grid {
+      margin-top: 1rem;
+      padding: 16px;
+    }
+  }
+
+  @media (max-width: 580px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
   }
 `
 const BlogCard = styled.div`
@@ -33,12 +53,12 @@ const BlogCard = styled.div`
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  grid-column: span 12;
   border-radius: 4px;
   overflow: hidden;
-
+  padding: 24px;
   background-color: ${({ theme }) => theme.blogCard.bgColor} !important;
   border-radius: 4px;
+  box-shadow: ${({ theme }) => theme.blogCard.shado};
 
   &:hover {
     cursor: pointer;
@@ -47,8 +67,8 @@ const BlogCard = styled.div`
 `
 const ImgWrapper = styled.div`
   position: relative;
-  width: 100%;
-  height: 224px;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 4px;
   overflow: hidden;
 
@@ -56,7 +76,6 @@ const ImgWrapper = styled.div`
     object-fit: cover;
   }
 `
-
 const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -64,15 +83,14 @@ const TextWrapper = styled.div`
   align-items: stretch;
   box-sizing: border-box;
   width: 100%;
-  grid-column: span 12;
   overflow: hidden;
-  padding: 1rem;
+  margin-top: 1rem;
 
   h3 {
     text-transform: capitalize;
     font-size: 24px;
     font-weight: 500;
-    margin-bottom: 8px;
+    margin-bottom: 1rem;
     color: ${({ theme }) => theme.blogCard.h1Color} !important;
   }
 
@@ -99,10 +117,16 @@ const GridCrad: FC<GridCardProps> = ({
   collectionSlug,
 }) => {
   return (
-    <Link href={`/collection/${collectionSlug}/${slug}`}>
+    <Link
+      href={`/collection/${collectionSlug}/${slug}`}
+      style={{
+        display: 'block',
+      }}
+      aeria-label={title}
+    >
       <BlogCard className="grid-card">
         <ImgWrapper className="grid-card__img">
-          <Image src={img} alt={title} width={367} height={231} />
+          <Image src={img} alt={title} width={40} height={40} />
         </ImgWrapper>
         <TextWrapper className="grid-card__content">
           <h3 className="grid-card__title">{title}</h3>
@@ -114,7 +138,6 @@ const GridCrad: FC<GridCardProps> = ({
 }
 
 const ArticleGrid: FC<HeroProps> = ({ articles, parentSlug }) => {
-  console.log(articles, 'articles')
   return (
     <Root>
       <div className="grid">

@@ -12,6 +12,14 @@ const Root = styled.section`
   background-color: ${(props) => props.theme.heroModule.background};
   padding: 0 80px;
   position: relative;
+
+  @media (max-width: 1024px) {
+    padding: 0 24px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 16px;
+  }
 `
 type ContainerProps = {
   isImage: boolean
@@ -51,6 +59,28 @@ const Container = styled.div<ContainerProps>`
       line-height: 1.5;
     }
   }
+
+  @media (max-width: 1024px) {
+    padding: 48px 0px;
+
+    .text-container {
+      h1 {
+        font-size: 29px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 40px 24px 40px 0px;
+    max-width: 100%;
+
+    .text-container {
+      max-width: 100%;
+      p {
+        font-size: 14px;
+      }
+    }
+  }
 `
 
 const ImagWrapper = styled.div`
@@ -61,6 +91,10 @@ const ImagWrapper = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
   }
 `
 

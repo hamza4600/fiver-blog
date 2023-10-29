@@ -21,7 +21,7 @@ const lightThem = {
     hoverBackground: '#091E420F',
     activeBackground: '#E9F2FF',
     activeColor: '#0C66E4',
-    closeBox : 'white',
+    closeBox: 'white',
   },
   heroModule: {
     background: '#091E420F',
@@ -45,6 +45,7 @@ const lightThem = {
   },
   blogCard: {
     boxShadow: '0px 8px 12px #091E4226, 0px 0px 1px #091E424F',
+    shado: '0px 1px 1px #091E4240, 0px 0px 1px #091E424F',
     h1Color: '#172B4D',
     desColor: '#626F86',
     bgColor: '#fff',
@@ -81,7 +82,7 @@ const darkThem = {
     hoverBackground: '#A1BDD914',
     activeBackground: '#1C2B41',
     activeColor: '#579DFF',
-    closeBox : '#1D2125',
+    closeBox: '#1D2125',
   },
   heroModule: {
     background: '#A1BDD914',
@@ -106,6 +107,8 @@ const darkThem = {
   blogCard: {
     boxShadow:
       '0px 0px 0px 1px #39424a, 0px 8px 12px #0304045C, 0px 0px 1px 1px #03040480',
+    shado:
+      '0px 0px 0px 1px #00000000, 0px 1px 1px #03040480, 0px 0px 1px #03040480',
     h1Color: '#B6C2CF',
     desColor: '#8C9BAB',
     bgColor: '#22272B',

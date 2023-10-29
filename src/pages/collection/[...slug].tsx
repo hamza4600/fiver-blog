@@ -109,9 +109,6 @@ export const getServerSideProps: GetStaticProps<
 export default function ProjectSlugRoute(
   props: InferGetServerSidePropsType<typeof getServerSideProps>,
 ) {
-  //   const [post] = useLiveQuery(props.post, postBySlugQuery, {
-  //     slug: props.post.slug.current,
-  //   })
   const post = props.blogPost
   const collection = props.collection
 
@@ -134,6 +131,7 @@ export default function ProjectSlugRoute(
         sideBarItems={sideBarItems}
         parentSlug={props.parentSlug}
         sideBarTitle={props.collection.title}
+        subDropdown={sideBarItems}
       >
         {props.blogPostArticle ? (
           <>

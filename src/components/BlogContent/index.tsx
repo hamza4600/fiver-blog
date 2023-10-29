@@ -6,6 +6,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 import { generateId } from '~/hooks/generateId'
+import useWindos from '~/hooks/useWindos'
 import { urlForImage } from '~/lib/sanity.image'
 
 import AsideBar from './Asidebar'
@@ -23,25 +24,39 @@ const BlogContainer = styled.div`
   padding: 32px 80px 40px;
 
   color: ${({ theme }) => theme.blogSection.textColor} !important;
+
   p {
     font-size: 14px;
     line-height: 1.5;
     margin-bottom: 10px;
+    font-weight: 300;
   }
 
-  h2 {
+  strong {
+    font-weight: 500;
+  }
+
+  h2,
+  h1 {
     font-size: 24px;
     font-weight: 500;
     margin-bottom: 10px;
   }
 
-  ul {
+  h1 {
+    font-size: 25px;
+  }
+
+  ul,
+  ol {
     list-style: disc;
     margin-left: 30px;
+
     li {
       font-size: 14px;
       line-height: 1.5;
       margin-bottom: 10px;
+      font-weight: 300 !important;
     }
   }
 
@@ -54,6 +69,15 @@ const BlogContainer = styled.div`
     &:hover {
       text-decoration: underline !important;
     }
+  }
+
+  @media (max-width: 1024px) {
+    padding: 32px 24px 40px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 32px 16px 40px;
+    max-width: 100%;
   }
 `
 
@@ -97,6 +121,8 @@ type BlogContentProps = {
 const BlogContentSection: FC<BlogContentProps> = ({ content }) => {
   const [h2Tags, setH2Tags] = useState([])
   const ref = useRef(null)
+  const { width } = useWindos()
+  const isMobile = width < 768
 
   useEffect(() => {
     if (ref.current) {
@@ -135,7 +161,9 @@ const BlogContentSection: FC<BlogContentProps> = ({ content }) => {
       <BlogContainer ref={ref} className="blog-content">
         <PortableText value={content} components={myPortableTextComponents} />
       </BlogContainer>
-      <AsideBar title="Table of Contents" contentArray={h2Tags} />
+      {!isMobile && (
+        <AsideBar title="Table of Contents" contentArray={h2Tags} />
+      )}
     </Root>
   )
 }

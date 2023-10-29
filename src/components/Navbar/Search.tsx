@@ -1,7 +1,10 @@
 import * as Dialog from '@radix-ui/react-dialog'
+import Link from 'next/link'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 import useWindos from '~/hooks/useWindos'
+import { getAllData } from '~/lib/sanity.searchQuery'
 
 import { NavButton } from './themeButton'
 
@@ -141,8 +144,67 @@ const InputWrapper = styled.div`
 `
 const SeachBar = () => {
   // get and show data from api
+
+  // create sech function
+  const [search, setSearch] = useState('')
+  const [searchResult, setSearchResult] = useState([])
+  const [loading, setLoading] = useState(false)
+  console.log(searchResult)
+
+  let debouncer
+
+  const searchData = async (search) => {
+    setLoading(true)
+    const data = await getAllData()
+
+    clearTimeout(debouncer)
+    debouncer = setTimeout(() => {
+      setLoading(true)
+      const filteredData = data.filter((item) => {
+        const searchableText = Object.values(item).filter((value) => {
+          return typeof value === 'string'
+        })
+        return searchableText.some((value) => {
+          return (value as string).toLowerCase().includes(search.toLowerCase())
+        })
+      })
+      setSearchResult(filteredData)
+      setLoading(false)
+    }, 1000)
+  }
+
+  const handleChange = (e) => {
+    e.preventDefault()
+    setSearch(e.target.value)
+    searchData(search)
+  }
+
+  const handleClear = () => {
+    setSearch('')
+    setSearchResult([])
+  }
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      handleClear()
+    }
+  }
+
+  const handleBlur = () => {
+    if (search === '') {
+      handleClear()
+    }
+    setSearchResult([])
+  }
+
+  const handleFocus = () => {
+    if (search !== '') {
+      searchData(search)
+    }
+  }
+
   const { width } = useWindos()
-  const isTablet = width < 1024;
+  const isTablet = width < 1024
   return (
     <>
       <Dialog.Root>
@@ -179,8 +241,48 @@ const SeachBar = () => {
                       placeholder="Search"
                       data-ds--text-field--input="true"
                       data-ds--text-field="true"
+                      value={search}
+                      onChange={handleChange}
+                      onKeyDown={handleKeyDown}
+                      // onBlur={handleBlur}
+                      onFocus={handleFocus}
                     />
                   </InputWrapper>
+                </div>
+
+                {loading && (
+                  <div>
+                    <p>Loading...</p>
+                  </div>
+                )}
+
+                {searchResult?.length === 0 && !loading && (
+                  <div>
+                    <p>No result found</p>
+                  </div>
+                )}
+
+                <div>
+                  {searchResult?.map((item, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        padding: '1rem',
+                      }}
+                    >
+                      <Link
+                        href={
+                          item?._type === 'collectionPage'
+                            ? `/collection/${item?.slug?.current}`
+                            : `/collection/server/${item?.slug?.current}`
+                        }
+                        aeria-label="search result"
+                      >
+                        <p>{item?.title}</p>
+                        <p>{item?.description}</p>
+                      </Link>
+                    </div>
+                  ))}
                 </div>
 
                 <CloseWrapper>

@@ -1,4 +1,5 @@
 import type { PortableTextBlock } from '@portabletext/types'
+import sanityClient from '@sanity/client'
 import type { ImageAsset, Slug } from '@sanity/types'
 import groq from 'groq'
 import { type SanityClient } from 'next-sanity'
@@ -51,4 +52,16 @@ export interface NavItems {
   href?: string
   description?: string
   slug: Slug
+}
+
+// for client side queries
+const client = sanityClient({
+  projectId: 'kjbi67ln',
+  dataset: 'blog-dev',
+  useCdn: true,
+})
+
+export const getClientNavItems = () => {
+  const data = client.fetch(navItemsQuery)
+  return data
 }
